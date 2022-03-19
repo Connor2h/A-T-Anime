@@ -20,7 +20,7 @@ const typeDefs = gql`
 
   type MyAnime {
     userId: String
-    anime: Anime
+    anime: [Anime]
   }
 
   type Anime {

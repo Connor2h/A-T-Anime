@@ -5,10 +5,10 @@ const myanimeSchema = new Schema(
         userId: {
             type: String
         },
-        anime: {
+        anime: [{
             type: Schema.Types.ObjectId,
             ref: 'Anime'
-        }
+        }]
     }
 )
 const MyAnime = model('MyAnime', myanimeSchema);
