@@ -20,6 +20,7 @@ const Login = (props) => {
 
   // submit form
   const handleFormSubmit = async (event) => {
+    console.log("submitting form");
     event.preventDefault();
 
     try {
@@ -40,24 +41,15 @@ const Login = (props) => {
   };
 
   return (
-    <main className="flex-row justify-center mb-4">
-      <div className="col-12 col-md-6">
+    <div className="col s12 m12 l6">
+      <div className="">
         <div className="card">
-          <h4 className="card-header">Sign Up</h4>
-          <div className="card-body">
+          <h4 className="card-header">Log In</h4>
+          <div className="card-body login-signup">
             <form onSubmit={handleFormSubmit}>
               <input
                 className="form-input"
-                placeholder="Your username"
-                name="username"
-                type="username"
-                id="username"
-                value={formState.username}
-                onChange={handleChange}
-              />
-              <input
-                className="form-input"
-                placeholder="Your email"
+                placeholder="Email"
                 name="email"
                 type="email"
                 id="email"
@@ -66,7 +58,7 @@ const Login = (props) => {
               />
               <input
                 className="form-input"
-                placeholder="******"
+                placeholder="Password"
                 name="password"
                 type="password"
                 id="password"
@@ -74,47 +66,18 @@ const Login = (props) => {
                 onChange={handleChange}
               />
               <button className="btn d-block w-100" type="submit">
-                Submit
+                Log In
               </button>
             </form>
-
-            {error && <div>Signup failed</div>}
-          </div>
-        </div>
-      </div>
-      <div className="col-12 col-md-6">
-        <div className="card">
-          <h4 className="card-header">Login</h4>
-          <div className="card-body">
-            <form onSubmit={handleFormSubmit}>
-              <input
-                className="form-input"
-                placeholder="Your email"
-                name="email"
-                type="email"
-                id="email"
-                value={formState.email}
-                onChange={handleChange}
-              />
-              <input
-                className="form-input"
-                placeholder="******"
-                name="password"
-                type="password"
-                id="password"
-                value={formState.password}
-                onChange={handleChange}
-              />
-              <button className="btn d-block w-100" type="submit">
-                Submit
-              </button>
-            </form>
+            <p className='pLogin-Signup'>
+              Trouble logging in? Make sure browser cookies and JavaScript are enabled.
+            </p>
 
             {error && <div>Login failed</div>}
           </div>
         </div>
       </div>
-    </main>
+    </div>
   );
 };
 

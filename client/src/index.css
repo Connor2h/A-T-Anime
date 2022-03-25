@@ -107,11 +107,23 @@ nav a:hover {
   font-size: 2.5rem;
 }
 
+
+.pLogin-Signup{
+  position: absolute;
+  bottom: 5%;
+  text-align: center;
+}
+
+.lineBreak{
+  /* border-right: 5px solid black; */
+}
+
 .btn,
 .pill {
-  font-size: 1.3rem;
+  height: 8vh;
+  font-size: 1rem;
   text-decoration: none;
-  padding: 0.5rem 1.2rem;
+  /* padding: 0.5rem 1.2rem; */
   margin: 5px 0;
   border-radius: var(--border-radius);
   border: none;
@@ -119,6 +131,11 @@ nav a:hover {
   outline: none;
   background-color: var(--secondary);
   transition: all 0.5s;
+}
+
+.login-signup{
+  height: 50vh;
+  font-size: 12px;
 }
 
 .btn:hover,
@@ -158,6 +175,22 @@ nav a:hover {
   font-size: 1.4rem;
 }
 
+.dot {
+  height: 100px;
+  width: 100px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: flex;
+  text-align: center;
+  align-items: center; 
+  justify-content: center;
+}
+
+.anime-card-height{
+  height: 60vh;
+  width: 50%;
+}
+
 /* FORM */
 .form-label,
 .form-input,
@@ -177,6 +210,10 @@ nav a:hover {
   font-size: 1.2rem;
   border: 2px solid var(--dark);
   border-radius: var(--border-radius);
+}
+
+.divHeight{
+  height: 200px;
 }
 
 [type='radio']:checked,
@@ -243,6 +280,48 @@ nav a:hover {
 
 .container-fluid {
   width: 92%;
+}
+
+.favAnime{
+  position: relative;
+}
+
+.favAnimeImg{
+  border-radius: 5%;
+}
+
+.btn-anime{
+  display: block;
+  margin: 0;
+  overflow: hidden;
+  padding: 0;
+  text-align: center;
+  padding: 0;
+}
+
+.btn-anime :hover{
+  opacity: 0.7;
+}
+
+.spanFavAnimesTitle{
+  padding: 15px 5px 5px;
+  width: calc(100% - 5px - 5px);
+}
+
+.favAnimeContainer{
+  position: relative;
+}
+
+.h3FavAnimesTitle{
+  background-color: rgba(0, 0, 0, .8);
+  font-size: small;
+  position: absolute;
+  bottom: 0px;
+  color: white;
+  text-align: center;
+  display: inline-block;
+  width:100%;
+  overflow:hidden;
 }
 
 /* DISPLAY */
