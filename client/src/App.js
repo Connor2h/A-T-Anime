@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import {
   ApolloClient,
   InMemoryCache,
   ApolloProvider,
   createHttpLink,
+  useQuery,
 } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 
@@ -20,6 +21,7 @@ import Signup from './pages/Signup';
 import Anime from './pages/Anime';
 import YourList from './pages/YourList';
 import Registersignup from './pages/Registerlogin';
+import { ALL_ANIME } from './utils/queries';
 
 const httpLink = createHttpLink({
   uri: '/graphql',
@@ -40,7 +42,32 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
+
+
 function App() {
+//   const [anime, setAnime] = useState([]);
+//   const [MyAnimeList, setMyAnimeList] = useState([]);
+//   const [searchValue, setSearchValue] = useState('');
+
+//   const getAnimeRequest = async () => {
+//     const { loading, data } = useQuery(ALL_ANIME);
+//     const animedatabase = data?.allAnime || [];
+//     const searchResults = animedatabase.filter (anime => anime.romajiTitle.toLowerCase().indexOf(searchValue.toLowerCase()) !== -1);
+    
+// }
+//     const response = await apiCall();
+//     // const responseJson = await response.json();
+  
+//     console.log (response);
+//     // console.log(responseJson.Search);
+//   }
+
+//   useEffect(()=>{
+//     getAnimeRequest();
+//   },[searchValue])
+
+
+
   return (
     <ApolloProvider client={client}>
       <Router>

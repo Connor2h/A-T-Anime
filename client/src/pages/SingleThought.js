@@ -15,6 +15,7 @@ const SingleThought = (props) => {
     variables: { id: thoughtId },
   });
 
+  // TODO: if there is a data.thought use it if not empty string so page dosnt break (optional chaining)
   const thought = data?.thought || {};
 
   if (loading) {

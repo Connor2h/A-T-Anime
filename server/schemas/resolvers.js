@@ -64,8 +64,13 @@ const resolvers = {
       return anime;
     },
 
-    allAnime: async () => {
-      const anime = await Anime.find();
+    allAnime: async (parent,{romajiTitle}) => {
+      console.log(romajiTitle);
+      let query = {};
+      if (romajiTitle){
+        query = $regex: new RegExp(`.+${romajiTitle}.+`), $options: 'i' };
+      }
+      const anime = await Anime.find(query);
 
       return anime;
     }
