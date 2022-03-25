@@ -18,20 +18,18 @@ export const QUERY_THOUGHTS = gql`
   }
 `;
 
-export const QUERY_THOUGHT = gql`
-  query thought($id: ID!) {
-    thought(_id: $id) {
+export const LIST_ANIME = gql`
+  query animeByName($romajiTitle: String, $generes: [String]) {
+    animeByName(romajiTitle: $romajiTitle, genres: $generes) {
       _id
-      thoughtText
-      createdAt
-      username
-      reactionCount
-      reactions {
-        _id
-        createdAt
-        username
-        reactionBody
-      }
+      englishTitle
+      romajiTitle
+      nativeTitle
+      description
+      coverImageLarge
+      coverImageMedium
+      bannerImage
+      genres
     }
   }
 `;
