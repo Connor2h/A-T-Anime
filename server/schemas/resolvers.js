@@ -53,6 +53,39 @@ const resolvers = {
 
       return userData;
     },
+
+    userSearchBar: async (parent, { page, userName }) => {
+      const user = await User.find({ username: { $regex: `^${userName}`, $options: "i" } }, function(err, docs) {
+        if (err) console.log(err);
+        console.log(userName);
+        })
+        .populate({
+          path: 'myAnime',
+          model: 'MyAnime',
+          populate: {
+            path: 'anime',
+            model: 'Anime'
+          }
+        })
+        .limit(52)
+        .skip((page * 52) - 52);
+      return user;
+    },
+
+    getAnimeBySearch: async (parent, { page, title }) => {
+      const anime = await Anime.find({ $or: [ { 
+        romajiTitle: { 
+          $regex: `^${title}`, 
+          $options: "i" 
+        }}, { 
+        englishTitle: { 
+          $regex: `^${title}`, 
+          $options: "i" 
+        }}]})
+        .limit(51)
+        .skip((page * 51) - 51);
+      return anime;
+    },
     // get all users
     users: async () => {
       const userData = User.find()

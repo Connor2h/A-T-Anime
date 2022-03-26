@@ -52,7 +52,8 @@ const typeDefs = gql`
     users: [User]
     animebyId(animeId: ID!): Anime
     allAnime(page: Int): [Anime]
-    animeByName(romajiTitle:String, genres: [String]): [Anime]
+    userSearchBar(page: Int!, userName: String!): [User]
+    getAnimeBySearch(page: Int!, title: String!): [Anime]
   }
 
   type Mutation {

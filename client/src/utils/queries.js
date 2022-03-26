@@ -112,48 +112,78 @@ export const LIST_ANIME = gql`
 `;
 
 export const QUERY_USER = gql`
-  query user($username: String!) {
-    user(username: $username) {
+  query UserByUserName($userName: String!) {
+    userByUserName(userName: $userName) {
       _id
       username
       email
-      friendCount
-      friends {
-        _id
+      followerCount
+      followingCount
+      following {
         username
       }
-      thoughts {
-        _id
-        thoughtText
-        createdAt
-        reactionCount
+      myAnime {
+        userId
+        score
+        anime {
+          _id
+          englishTitle
+          nativeTitle
+          romajiTitle
+          type
+          format
+          status
+          description
+          startDate
+          endDate
+          season
+          episodes
+          duration
+          source
+          coverImageLarge
+          coverImageMedium
+          bannerImage
+          genres
+        }
       }
     }
   }
 `;
 
 export const QUERY_ME = gql`
-  {
+  query Me {
     me {
       _id
       username
       email
-      friendCount
-      thoughts {
-        _id
-        thoughtText
-        createdAt
-        reactionCount
-        reactions {
-          _id
-          createdAt
-          reactionBody
-          username
-        }
-      }
-      friends {
-        _id
+      followerCount
+      followingCount
+      following {
         username
+      }
+      myAnime {
+        userId
+        score
+        anime {
+          _id
+          englishTitle
+          nativeTitle
+          romajiTitle
+          type
+          format
+          status
+          description
+          startDate
+          endDate
+          season
+          episodes
+          duration
+          source
+          coverImageLarge
+          coverImageMedium
+          bannerImage
+          genres
+        }
       }
     }
   }
@@ -173,3 +203,67 @@ export const QUERY_ME_BASIC = gql`
     }
   }
 `;
+
+export const Query_User_Search = gql `
+query userSearchBar($page: Int!, $userName: String!) {
+  userSearchBar(page: $page, userName: $userName) {
+    _id
+    username
+    email
+    followerCount
+    followingCount
+    following {
+      username
+    }
+    myAnime {
+      userId
+      score
+      anime {
+        _id
+        englishTitle
+        nativeTitle
+        romajiTitle
+        type
+        format
+        status
+        description
+        startDate
+        endDate
+        season
+        episodes
+        duration
+        source
+        coverImageLarge
+        coverImageMedium
+        bannerImage
+        genres
+      }
+    }
+  }
+}
+`;
+
+export const Query_Anime_By_Search = gql `
+  query getAnimeBySearch($page: Int!, $title: String!) {
+    getAnimeBySearch(page: $page, title: $title) {
+      _id
+      englishTitle
+      romajiTitle
+      nativeTitle
+      type
+      format
+      status
+      description
+      startDate
+      endDate
+      season
+      episodes
+      duration
+      source
+      coverImageLarge
+      coverImageMedium
+      bannerImage
+      genres
+    }
+  }
+`
