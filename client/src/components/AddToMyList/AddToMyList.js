@@ -27,7 +27,7 @@ const AddToMyList = ({animeId}) => {
 
     return(
         <>
-            <button className="btn bottom-right" onClick={handleClick}><Favoritesbtn /></button>
+            <button className="btn bottom-right" onClick={handleClick}>{/* <Favoritesbtn /> */}Add To List</button>
         </>
     )
 };

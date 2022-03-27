@@ -25,7 +25,7 @@ const RemoveFromList = ({animeId}) => {
 
     return(
         <>
-            <button className="btn bottom-right" onClick={handleClick}></button>
+            <button className="btn bottom-right" onClick={handleClick}>Remove from List</button>
         </>
     )
 };
