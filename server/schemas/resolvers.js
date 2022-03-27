@@ -178,6 +178,24 @@ const resolvers = {
 
       throw new AuthenticationError("You need to be logged in!");
     },
+    // Take removes anime from users list
+    removeAnime: async (parent, args, context) => {
+      if (context.user) {
+        
+        const updatedUser = await User.findOneAndUpdate(
+          { _id: context.user._id },
+          { $pull: { myAnime: myAnime._id } },
+          { new: true }
+        );
+
+        let myAnime = await MyAnime.deleteOne({ userId: context.user._id, anime: [args.animeId] });
+        console.log(myAnime);
+
+        return myAnime;
+      }
+
+      throw new AuthenticationError("You need to be logged in!");
+    },
 
     createAnime: async (parent, args) => {
       const anime = await Anime.create(args);
