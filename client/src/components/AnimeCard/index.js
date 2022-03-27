@@ -4,7 +4,7 @@ import AddToMyList from "../AddToMyList/AddToMyList";
 import RemoveFromList from "../RemoveFromList";
 
 export default function AnimeCard(props) {
-
+    console.log(props.animeId)
     return (
         <li className="btn-anime col s12 m6 l4 ">
             <div className="card">

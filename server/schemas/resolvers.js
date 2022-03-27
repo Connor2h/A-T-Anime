@@ -184,14 +184,14 @@ const resolvers = {
         
         const updatedUser = await User.findOneAndUpdate(
           { _id: context.user._id },
-          { $pull: { myAnime: myAnime._id } },
+          { $pull: { myAnime: [args.animeId] } },
           { new: true }
         );
 
-        let myAnime = await MyAnime.deleteOne({ userId: context.user._id, anime: [args.animeId] });
-        console.log(myAnime);
+        await MyAnime.findOneAndDelete({ userId: context.user._id, anime: [args.animeId] });
+        console.log(updatedUser);
 
-        return myAnime;
+        return updatedUser;
       }
 
       throw new AuthenticationError("You need to be logged in!");
