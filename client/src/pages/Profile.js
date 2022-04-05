@@ -93,7 +93,9 @@ const Profile = () => {
   let page = "profile";
 
   const followCheck = () => {
-    if (!isfollow && userParam) {
+    if (!Auth.loggedIn()) {
+      return;
+    } else if (!isfollow && userParam) {
       return <button className="waves-effect waves-orange btn-small btn-orange ml-5" onClick={handleClick}>Follow</button>;
     } else if (isfollow && userParam) {
       return <button className="waves-effect waves-orange btn-small btn-orange ml-5" onClick={handleUnfollow}>Unfollow</button>;
@@ -113,7 +115,6 @@ const Profile = () => {
               isfollow = true;
             }
         })}
-        {(!Auth.loggedIn()) ? (isfollow = true) : ('')}
         {followCheck()}
         {isfollow = false}
         </h2>
