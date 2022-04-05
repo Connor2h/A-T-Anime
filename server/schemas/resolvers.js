@@ -247,6 +247,9 @@ const resolvers = {
 
     updateScore: async (parent, { score, myAnimeId }, context) => {
       if (context.user) {
+        if (score > 10 || score < 1) {
+          return;
+        }
 
         const updatedMyAnime = await MyAnime.findOneAndUpdate(
           { _id: myAnimeId, userId: context.user._id },
