@@ -21,7 +21,7 @@ import YourList from './pages/YourList';
 import Registersignup from './pages/Registerlogin';
 
 const httpLink = createHttpLink({
-  uri: '/graphql',
+  uri: 'https://a-t-anime-server.vercel.app/graphql',
 });
 
 const authLink = setContext((_, { headers }) => {
