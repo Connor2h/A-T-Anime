@@ -57,13 +57,13 @@ console.log(users);
         </form>
         <div className="container">
           <div className={`col-12 mb-3 ${loggedIn}`}>
-            {userRes.loading ? (
+            {users?.loading ? (
               <div>Loading...</div>
             ) : (
               <div>
                 <AllUsersList
                   title="Top Popular Anime Lists"
-                  users={users.data.users}
+                  users={users?.data?.users}
                 />
               </div>
             )}
@@ -77,7 +77,7 @@ console.log(users);
                     <span className="pr-3">
                         {page}
                     </span>
-                    <button className="waves-effect waves-orange btn-large btn-orange"  onClick={next} disabled={users.data.users.length < 53}>
+                    <button className="waves-effect waves-orange btn-large btn-orange"  onClick={next} disabled={users?.data?.users.length < 53}>
                         Next page
                     </button>
                 </h4>
