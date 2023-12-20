@@ -1,4 +1,4 @@
-const faker = require('faker');
+const { faker } = require('@faker-js/faker');
 
 const db = require('../config/connection');
 const { User, MyAnime, Anime } = require('../models');
@@ -21,60 +21,64 @@ db.once('open', async () => {
         userData.push({ username, email, password });
     }
 
-    const createdUsers = await User.collection.insertMany(userData);
+    const { insertedCount, insertedIds } = await User.collection.insertMany(userData);
+    
 
     // create followers for seeded users
     for (let i = 0; i < 100; i += 1) {
-        const randomUserIndex = Math.floor(Math.random() * createdUsers.ops.length);
-        const { _id: userId } = createdUsers.ops[randomUserIndex];
+        const randomUserIndex = Math.floor(Math.random() * insertedCount);
+        const [randomUserId, randomUserValue] = Object.entries(insertedIds)[randomUserIndex];
 
-        let followerId = userId;
+        let followerId = randomUserId;
 
-        while (followerId === userId) {
-            const randomUserIndex = Math.floor(Math.random() * createdUsers.ops.length);
-            followerId = createdUsers.ops[randomUserIndex];
+        while (followerId === randomUserId) {
+            const randomFollowerIndex = Math.floor(Math.random() * insertedCount);
+            const [randomFollowerId, randomFollowerValue] = Object.entries(insertedIds)[randomFollowerIndex];
+            followerId = randomFollowerId;
         }
 
-        await User.updateOne({ _id: userId }, { $addToSet: { followers: followerId } });
+        await User.updateOne({ _id: randomUserValue }, { $addToSet: { followers: randomUserValue } });
     }
 
     // create following for seeded users
     for (let i = 0; i < 100; i += 1) {
-        const randomUserIndex = Math.floor(Math.random() * createdUsers.ops.length);
-        const { _id: userId } = createdUsers.ops[randomUserIndex];
+        const randomUserIndex = Math.floor(Math.random() * insertedCount);
+        const [randomUserId, randomUserValue] = Object.entries(insertedIds)[randomUserIndex];
 
-        let followingId = userId;
+        let followingId = randomUserId;
 
-        while (followingId === userId) {
-            const randomUserIndex = Math.floor(Math.random() * createdUsers.ops.length);
-            followingId = createdUsers.ops[randomUserIndex];
+        while (followingId === randomUserId) {
+            const randomFollowerIndex = Math.floor(Math.random() * insertedCount);
+            const [randomFollowerId, randomFollowerValue] = Object.entries(insertedIds)[randomFollowerIndex];
+            followingId = randomFollowerId;
         }
 
-        await User.updateOne({ _id: userId }, { $addToSet: { following: followingId } });
+        await User.updateOne({ _id: randomUserValue }, { $addToSet: { following: randomUserValue } });
     }
 
     //push anime data into anime Model db
-    const createdAnime = await Anime.collection.insertMany(animeData);
+    const { insertedCount: animeLength, insertedIds:animeIds } = await Anime.collection.insertMany(animeData);
 
     //creating random myanime lists for seeded users
     const userListData = [];
     for (let i = 0; i < 75; i += 1) {
         const anime = []; 
         // Gets user ID
-        const { _id: userId } = createdUsers.ops[i];
+        const [randomUserId, randomUserValue] = Object.entries(insertedIds)[i];
+        //const { _id: userId } = createdUsers.ops[i];
 
         // Creates 5 Myanime for user
         for (let i=0; i<5; i+= 1) {
-            const randomAnimeIndex = Math.floor(Math.random() * createdAnime.ops.length);
+            const randomAnimeIndex = Math.floor(Math.random() * animeLength);
             // Gets random anime
-            const addAnime = createdAnime.ops[randomAnimeIndex];
+            const [randomAnimeId, randomAnimeValue] =  Object.entries(animeIds)[randomAnimeIndex];
             //anime.push(addAnime);
 
             // Puts random anime in MyAnime
-            let myAnimedata = await MyAnime.create({ userId: userId, score: 5, anime: [addAnime._id] });
+            let myAnimedata = await MyAnime.create({ userId: randomUserValue, score: 5, anime: [randomAnimeValue] });
             // Puts new MyAnime in User
             const updatedUser = await User.findOneAndUpdate(
-                { _id: userId },
+                { _id: randomUserValue },
                 { $push: { myAnime: myAnimedata._id }},
                 { new: true }
             );
@@ -84,8 +88,8 @@ db.once('open', async () => {
 
         //userListData.push({userId, anime});
     }
-    //await MyAnime.collection.insertMany(userListData);
-    //console.log(userListData);
+    // await MyAnime.collection.insertMany(userListData);
+    // console.log(userListData);
 
 
     console.log('Seeding complete');
