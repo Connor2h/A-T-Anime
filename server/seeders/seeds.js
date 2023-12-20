@@ -35,9 +35,9 @@ db.once('open', async () => {
             const randomFollowerIndex = Math.floor(Math.random() * insertedCount);
             const [randomFollowerId, randomFollowerValue] = Object.entries(insertedIds)[randomFollowerIndex];
             followerId = randomFollowerId;
+            await User.updateOne({ _id: randomUserValue }, { $addToSet: { followers: randomFollowerValue } });
         }
 
-        await User.updateOne({ _id: randomUserValue }, { $addToSet: { followers: randomUserValue } });
     }
 
     // create following for seeded users
@@ -51,9 +51,9 @@ db.once('open', async () => {
             const randomFollowerIndex = Math.floor(Math.random() * insertedCount);
             const [randomFollowerId, randomFollowerValue] = Object.entries(insertedIds)[randomFollowerIndex];
             followingId = randomFollowerId;
+            await User.updateOne({ _id: randomUserValue }, { $addToSet: { following: randomFollowerValue } });
         }
 
-        await User.updateOne({ _id: randomUserValue }, { $addToSet: { following: randomUserValue } });
     }
 
     //push anime data into anime Model db
