@@ -204,7 +204,7 @@ const resolvers = {
         }
 
         myAnime = await MyAnime.create({ userId: context.user._id, anime: [args.animeId] });
-        myAnime = await myAnime.populate('anime').execPopulate();
+        myAnime = await myAnime.populate('anime');
 
         const updatedUser = await User.findOneAndUpdate(
           { _id: context.user._id },
