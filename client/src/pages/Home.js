@@ -75,7 +75,7 @@ const Home = () => {
                     <span className="pr-3">
                         {page}
                     </span>
-                    <button className="waves-effect waves-orange btn-large btn-orange"  onClick={next} disabled={userSearch?.data?.length < 53 && searchedUser}>
+                    <button className="waves-effect waves-orange btn-large btn-orange"  onClick={next} disabled={userSearch.length < 53}>
                         Next page
                     </button>
                 </h4>
