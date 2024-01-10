@@ -59,10 +59,7 @@ const resolvers = {
     },
 
     userSearchBar: async (parent, { page, userName }) => {
-      const user = await User.find({ username: { $regex: `${userName}`, $options: "i" } }, function(err, docs) {
-        if (err) console.log(err);
-        console.log(userName);
-        })
+      const user = await User.find({ username: { $regex: `${userName}`, $options: "i" } })
         .populate("followers")
         .populate("following")
         .populate({
@@ -95,7 +92,7 @@ const resolvers = {
     },
     // get all users
     users: async () => {
-      const userData = User.find()
+      const userData = await User.find()
         .select("-__v -password")
         .populate("followers")
         .populate("following")
@@ -204,7 +201,7 @@ const resolvers = {
         }
 
         myAnime = await MyAnime.create({ userId: context.user._id, anime: [args.animeId] });
-        myAnime = await myAnime.populate('anime').execPopulate();
+        myAnime = await myAnime.populate('anime');
 
         const updatedUser = await User.findOneAndUpdate(
           { _id: context.user._id },
@@ -247,6 +244,9 @@ const resolvers = {
 
     updateScore: async (parent, { score, myAnimeId }, context) => {
       if (context.user) {
+        if (score > 10 || score < 1) {
+          return;
+        }
 
         const updatedMyAnime = await MyAnime.findOneAndUpdate(
           { _id: myAnimeId, userId: context.user._id },

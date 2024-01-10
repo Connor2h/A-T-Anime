@@ -5,7 +5,6 @@ import RemoveFromList from "../RemoveFromList";
 import { UPDATE_SCORE } from '../../utils/mutations';
 import { useMutation } from '@apollo/client';
 import { QUERY_ME } from '../../utils/queries';
-import $ from "jquery";
 import Auth from '../../utils/auth';
 
 export default function AnimeCard(props) {
@@ -24,11 +23,12 @@ export default function AnimeCard(props) {
 
 
 
-    const handleupdateScore = async (event, blur) => {
+    const handleupdateScore = async (event) => {
         event.preventDefault();
-        if (!blur) {
-            $("#selectedScoreCircle").focus().blur();
-        }
+
+        
+        document.querySelector("#selectedScoreCircle").blur();
+        
         
         let i = parseInt(animeScore);
 
@@ -46,6 +46,9 @@ export default function AnimeCard(props) {
         }
     }
 
+    const handleBlur = () => {
+        document.querySelector("#selectedform").requestSubmit();
+    }
 
     const scoreCheck = () => {
         if (props.score) {
@@ -55,7 +58,7 @@ export default function AnimeCard(props) {
         }
 
         if (!props.userParam && props.page === "profile") {
-            return <input onBlur={(event) => handleupdateScore(event, 'blur')} onClick={() => setSelectedSection(props.myAnimeId)} id={(seletedSection === props.myAnimeId) ? ("selectedScoreCircle") : ('')} name="scoreinput" min="1" max="10" type="number" className="score-lable circle" value={(animeScore ? (animeScore) : (''))} onChange={e => setAnimeScore(e.target.value)} />;
+            return <input onBlur={() => handleBlur()} onClick={() => setSelectedSection(props.myAnimeId)} id={(seletedSection === props.myAnimeId) ? ("selectedScoreCircle") : ('')} name="scoreinput" min="1" max="10" type="number" className="score-lable circle" value={(animeScore ? (animeScore) : (''))} onChange={e => setAnimeScore(e.target.value)} />;
         }
         
     }
@@ -64,7 +67,7 @@ export default function AnimeCard(props) {
 
     return (
         <li className="btn-anime col s12 m6 l3 ">
-            <form name="scoreform" onSubmit={(event) => handleupdateScore(event)} className="from-score">
+            <form name="scoreform" onSubmit={(event) => handleupdateScore(event)} className="from-score" id={(seletedSection === props.myAnimeId) ? ("selectedform") : ('')}>
             <div className=" card">
                 <div className="">
                     <div className="project-label2">
