@@ -13,8 +13,8 @@ const Home = () => {
   const [userData, setUserData] = useState([]);
 
   const userRes = useQuery(Query_User_Search, { variables: { page: page, userName: searchedUser } });
-  const userss = userRes.data?.userSearchBar || [];
-  const users = useQuery(QUERY_ALL_USERS);
+  const userSearch = userRes.data?.userSearchBar || [];
+  // const users = useQuery(QUERY_ALL_USERS);
 
   const loggedIn = Auth.loggedIn();
 
@@ -55,13 +55,13 @@ const Home = () => {
         </form>
         <div className="container">
           <div className={`col-12 mb-3 ${loggedIn}`}>
-            {users?.loading ? (
+            {userRes?.loading ? (
               <div>Loading...</div>
             ) : (
               <div>
                 <AllUsersList
                   title="Top Popular Anime Lists"
-                  users={users?.data?.users}
+                  users={userSearch}
                 />
               </div>
             )}
@@ -75,7 +75,7 @@ const Home = () => {
                     <span className="pr-3">
                         {page}
                     </span>
-                    <button className="waves-effect waves-orange btn-large btn-orange"  onClick={next} disabled={users?.data?.users.length < 53 ?? 0}>
+                    <button className="waves-effect waves-orange btn-large btn-orange"  onClick={next} disabled={userSearch?.data?.length < 53 && searchedUser}>
                         Next page
                     </button>
                 </h4>

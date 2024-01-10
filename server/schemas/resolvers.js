@@ -59,10 +59,7 @@ const resolvers = {
     },
 
     userSearchBar: async (parent, { page, userName }) => {
-      const user = await User.find({ username: { $regex: `${userName}`, $options: "i" } }, function(err, docs) {
-        if (err) console.log(err);
-        console.log(userName);
-        })
+      const user = await User.find({ username: { $regex: `${userName}`, $options: "i" } })
         .populate("followers")
         .populate("following")
         .populate({
@@ -95,7 +92,7 @@ const resolvers = {
     },
     // get all users
     users: async () => {
-      const userData = User.find()
+      const userData = await User.find()
         .select("-__v -password")
         .populate("followers")
         .populate("following")
