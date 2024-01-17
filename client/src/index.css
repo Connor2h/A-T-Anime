@@ -77,6 +77,10 @@ h6 {
   font-size: 1rem;
 }
 
+.hidden {
+  display: none;
+}
+
 p {
   font-size: 1.1rem;
   margin-top: 0;
