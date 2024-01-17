@@ -10,7 +10,7 @@ const AllAnime = () => {
     const [input, setInput] = useState('');
     const [searchedTitle, setSearchedTitle] = useState('');
 
-    const { loading, data } = useQuery(Query_Anime_By_Search, {
+    const { data } = useQuery(Query_Anime_By_Search, {
         variables: {
             page: page,
             title: searchedTitle
@@ -41,16 +41,12 @@ const AllAnime = () => {
 
         setPage(1);
 
-/*         if (!input) {
-            return false;
-        } */
-
         handleSearch(input);
     }
 
     const favoriteCheck = (anime) => {
         myAnime.map(myanime => {
-            if (myanime.anime._id == anime._id) {
+            if (myanime.anime._id === anime._id) {
                 favorite = true;
             }    
         })
