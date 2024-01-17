@@ -1,13 +1,10 @@
-import React from 'react';
-import { useQuery, useMutation  } from '@apollo/client';
+import React, { useState } from 'react';
+import { useMutation } from '@apollo/client';
 import { ADD_ANIME } from '../../utils/mutations';
 import { QUERY_ME } from '../../utils/queries';
-import $ from "jquery";
 
-
-
-const AddToMyList = ({animeId, favorite}) => {
-
+const AddToMyList = ({ animeId, favorite }) => {
+    const [isClicked, setIsClicked] = useState(false);
 
     const [addAnime] = useMutation(ADD_ANIME, {
         refetchQueries: [
@@ -15,24 +12,23 @@ const AddToMyList = ({animeId, favorite}) => {
             'Me'
         ],
     });
-    const handleClick = async event =>{
+    const handleClick = async (event) => {
+        setTimeout(() => {
+            setIsClicked(!isClicked);
+        }, 500)
 
-        $(event.target).css("display", "none");
-        
-        try{
-            await addAnime ({
-                variables: {animeId: animeId}
+        try {
+            await addAnime({
+                variables: { animeId: animeId }
             })
-        } catch (e){
+        } catch (e) {
             console.error(e);
         }
     };
 
-
-    return(
+    return (
         <>
-            {(favorite) ? ('') : (<a className="btn-floating waves-effect waves-light light-blue accent-1 top-left mylist" onClick={handleClick}><i className="material-icons">bookmark_border</i></a>)}
-            
+            {(favorite) ? ('') : (<a className={`btn-floating waves-effect waves-light light-blue accent-1 top-left mylist ${isClicked ? 'hidden' : ''}`} onClick={handleClick}><i className="material-icons">bookmark_border</i></a>)}
         </>
     )
 };
