@@ -48,7 +48,10 @@ const AllAnime = () => {
         myAnime.map(myanime => {
             if (myanime.anime._id === anime._id) {
                 favorite = true;
-            }    
+                return favorite;
+            } 
+
+            return favorite;
         })
     }
 

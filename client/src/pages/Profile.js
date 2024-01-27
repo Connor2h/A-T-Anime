@@ -84,7 +84,9 @@ const Profile = () => {
     meAnime.map(meanime => {
       if (meanime.anime._id === animeList.anime._id) {
         favorite = true;
+        return favorite;
       }
+      return favorite;
     });
   }
 
@@ -113,7 +115,9 @@ const Profile = () => {
         { meFollowing.map(follow => {
             if (follow._id === user._id || !userParam) {
               isfollow = true;
+              return isfollow;
             }
+            return isfollow;
         })}
         {followCheck()}
         {isfollow = false}
