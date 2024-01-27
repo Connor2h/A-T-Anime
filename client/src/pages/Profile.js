@@ -6,7 +6,7 @@ import AnimeCard from '../components/AnimeCard'
 import { useQuery, useMutation } from '@apollo/client';
 import { QUERY_USER, QUERY_ME } from '../utils/queries';
 
-import { FOLLOW_USER, UNFOLLOW_USER, UPDATE_SCORE } from '../utils/mutations';
+import { FOLLOW_USER, UNFOLLOW_USER } from '../utils/mutations';
 
 import Auth from '../utils/auth';
 
@@ -84,7 +84,9 @@ const Profile = () => {
     meAnime.map(meanime => {
       if (meanime.anime._id === animeList.anime._id) {
         favorite = true;
+        return favorite;
       }
+      return favorite;
     });
   }
 
@@ -113,7 +115,9 @@ const Profile = () => {
         { meFollowing.map(follow => {
             if (follow._id === user._id || !userParam) {
               isfollow = true;
+              return isfollow;
             }
+            return isfollow;
         })}
         {followCheck()}
         {isfollow = false}

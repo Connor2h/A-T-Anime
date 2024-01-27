@@ -12,6 +12,7 @@ const AddToMyList = ({ animeId, favorite }) => {
             'Me'
         ],
     });
+
     const handleClick = async (event) => {
         setTimeout(() => {
             setIsClicked(!isClicked);
