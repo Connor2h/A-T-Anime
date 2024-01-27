@@ -3,18 +3,16 @@ import AllUsersList from '../components/AllUsersList';
 
 import Auth from '../utils/auth';
 import { useQuery } from '@apollo/client';
-import { Query_User_Search, QUERY_ME, QUERY_ALL_USERS } from '../utils/queries';
+import { Query_User_Search } from '../utils/queries';
 
 const Home = () => {
   const [page, setPage] = useState(1);
 
   const [searchedUser, setSearchedUser] = useState('');
   const [searchInput, setSearchInput] = useState('');
-  const [userData, setUserData] = useState([]);
 
   const userRes = useQuery(Query_User_Search, { variables: { page: page, userName: searchedUser } });
   const userSearch = userRes.data?.userSearchBar || [];
-  // const users = useQuery(QUERY_ALL_USERS);
 
   const loggedIn = Auth.loggedIn();
 
